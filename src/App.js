@@ -6,7 +6,7 @@ import Alert from "./Alert";
 function App() {
   const [item, setItem] = useState("");
   const [list, setList] = useState([]);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
   const handleSubmit = (e) => {
@@ -19,6 +19,7 @@ function App() {
     } else {
       const newItems = { id: new Date().getTime().toString(), title: item };
       setList([...list, newItems]);
+
       setItem("");
     }
   };
@@ -35,13 +36,14 @@ function App() {
           onChange={(e) => setItem(e.target.value)}
           value={item}
         />
-        <button className="btn"> {isEditing ? "edit" : "add to list"}</button>
+        <button className="btn"> {isEditing ? "add to list" : "edit"}</button>
       </form>
-
-      <div>
-        <List list={list} />
-        <button>clear item</button>
-      </div>
+      {list.length > 0 && (
+        <div>
+          <List list={list} />
+          <button onClick={() => setList("")}>clear item</button>
+        </div>
+      )}
     </section>
   );
 }
