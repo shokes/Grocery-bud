@@ -7,6 +7,7 @@ function App() {
   const [item, setItem] = useState("");
   const [list, setList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [editID, setEditID] = useState([]);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
   const handleSubmit = (e) => {
@@ -18,6 +19,19 @@ function App() {
       setAlert({ show: true, msg: "please enter an item", type: "danger" });
     } else if (item && isEditing) {
       // deal with the editing
+
+      setList(
+        list.map((li) => {
+          if (li.id === editID) {
+            return { ...li, title: item };
+          }
+
+          return li;
+        })
+      );
+      setAlert({ show: true, msg: "value changed", type: "success" });
+      setItem("");
+      setIsEditing(null);
     } else {
       const newItems = { id: new Date().getTime().toString(), title: item };
       setList([...list, newItems]);
@@ -36,6 +50,14 @@ function App() {
     setAlert({ show: false, msg: "", type: "" });
   };
 
+  const editItem = (id) => {
+    const edited = list.find((li) => li.id === id);
+    setIsEditing(true);
+    console.log(edited);
+    setEditID(id);
+    setItem(edited.title);
+  };
+
   return (
     <section className="container">
       {alert.show && <Alert {...alert} removeAlert={removeAlert} list={list} />}
@@ -52,7 +74,7 @@ function App() {
       </form>
       {list.length > 0 && (
         <div>
-          <List list={list} removeItem={removeItem} />
+          <List list={list} removeItem={removeItem} editItem={editItem} />
           <button
             className="btn-clear"
             onClick={() => {
