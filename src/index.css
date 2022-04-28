@@ -5,8 +5,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background-color: #dee2e6;
 }
@@ -80,4 +80,12 @@ button {
 .alert-success {
   background-color: #d3f9d8;
   color: #2b8a3e;
+}
+
+/* BELOW 656px (Phones) */
+
+@media (max-width: 41em) {
+  .container {
+    margin: 8rem 1rem;
+  }
 }
